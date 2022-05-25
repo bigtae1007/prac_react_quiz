@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
+import { useNavigate, useParams } from "react-router-dom";
 
 const QuizMain = (props) => {
+  const inputName = useRef()
+  const navigate = useNavigate();
+
   return (
       <ContentsDiv>
         <QuizImg
@@ -11,8 +15,14 @@ const QuizMain = (props) => {
         <p>
           나는 <span>이볌규</span>에 대해서 <br /> 얼마나 알고 있을 까?
         </p>
-        <InputName type="text" placeholder="내 이름" />
-        <StartBtn>시작하기</StartBtn>
+        <InputName type="text" placeholder="내 이름" ref={inputName} />
+        <StartBtn onClick={()=>{
+          if(inputName.current.value !== ""){
+            navigate(`/${inputName.current.value}/0`)
+          }else{
+            alert("이름을 입력해주세요 ! ")
+          }
+        }}>시작하기</StartBtn>
       </ContentsDiv>
   );
 };
