@@ -14,6 +14,7 @@ const initialState = {
     QA: ["나는 1번", "나는 2번", "나는 3번", "나는 4번", "나는 5번"],
     answer: ["O", "O", "X", "O", "X"],
   },
+  rank : [{name : 'btae6', score : 10},{name : 'btae4', score : 40},{name : 'bta3e1', score : 80 },{name : 'bta2e2', score : 60},{name : 'btae5', score : 20},{name : 'bta1e3', score : 46}]
 };
 
 // Actions
@@ -22,6 +23,7 @@ const CREATE = 'quiz/CREATE';
 const UPDATE = "quiz/UPDATE";
 const REMOVE = 'quiz/REMOVE';
 const DELETE = 'name/DETELE';
+const UPDATE_score = 'score/UPDATE'
 
 // Action Creators // 액션 함수
 export function loadQuiz() {
@@ -31,6 +33,9 @@ export function loadQuiz() {
 // export function loadQuiz(quiz) {
 //   return { type: LOAD, quiz };
 // }
+export function updateScore(score){
+  return {type : UPDATE_score, score}
+}
 
 export function deleteName(name){
   return {type: DELETE, name}

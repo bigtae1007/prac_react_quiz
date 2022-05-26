@@ -4,7 +4,9 @@ import QuizMain from "./QuizMain";
 import ActQuiz from "./ActQuiz";
 import SaveComent from './SaveComent'
 import FinishQuiz from "./FinishQuiz";
+
 import { BrowserRouter, Route, Switch, Link, Routes } from "react-router-dom";
+import RankQuiz from "./RankQuiz";
 
 function App(props) {
 
@@ -14,7 +16,8 @@ function App(props) {
             <Route path="/" element={<QuizMain />} />
             <Route path="/:name/:num"  element={<ActQuiz />} />
             <Route path="/:name/end" element={<FinishQuiz />} />
-            <Route path="/:name/comment" element={<SaveComent/>} />
+            {/* <Route path="/:name/comment" element={<SaveComent/>} /> */}
+            <Route path="/:name/comment" element={<RankQuiz/>} />
           </Routes>
         </ContainDiv>
   );
@@ -24,6 +27,7 @@ const ContainDiv = styled.div`
   width: 400px;
   margin: 0 auto;
   height: 700px;
+  overflow-y: auto;
 `;
 
 export default App;
