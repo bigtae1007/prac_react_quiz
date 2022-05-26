@@ -1,26 +1,28 @@
 import React from "react";
 import styled from "styled-components";
-import { Routes, Route, useParams, useNavigate } from 'react-router-dom';
-
+import { Routes, Route, useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import {updateQuiz} from "./redux/modules/quiz"
 const ActQuiz = (props) => {
-  const abc = [];
-  const navigate = useNavigate()
+  const a = useSelector((state) => state.quiz.myAnswer);
+  console.log(a)
+  const quiz = useSelector((state) => state.quiz.quizBtae);
+console.log(quiz)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const url = useParams();
-  const name = url.name
+  const name = url.name;
   const num = Number(url.num);
-  const question = props.data[0].QA;
-  const ans = props.data[0].answer;
-  console.log(question);
+  const question = quiz.QA;
+  const ans = quiz.answer;
 
-  const nextQ = (a)=>{
-    if(num === question.length){
-      navigate(`/${name}/end`)
-
-    }else{
-      navigate(`/${name}/${num+1}`)
+  const nextQ = (a) => {
+      dispatch(updateQuiz([a]))
+    if (num === question.length -1) {
+      navigate(`/${name}/end`);
+    } else {
+      navigate(`/${name}/${num + 1}`);
     }
-    console.log(abc)
-    abc.push(a)
   };
 
   return (
@@ -29,7 +31,7 @@ const ActQuiz = (props) => {
 
       <ContentsDiv>
         <Divbar>
-          <div style={{width: `${(num/ans.length)*100}%`}}></div>
+          <div style={{ width: `${(num / ans.length) * 100}%`, transition : "1s" }}></div>
         </Divbar>
         <img
           src="https://i.pinimg.com/236x/56/d5/85/56d58517bcd05f91f7f81f8ffeff69da.jpg"
@@ -41,9 +43,21 @@ const ActQuiz = (props) => {
         </TextDiv>
       </ContentsDiv>
       <BtnDiv>
-        <button onClick={()=>{nextQ("O")}}>O</button>
-        <button onClick={()=>{nextQ("X")}}>X</button>
-      </BtnDiv>
+        <button
+          onClick={() => {
+            nextQ("O");
+          }}
+        >
+          O
+        </button>
+        <button
+          onClick={() => {
+            nextQ("X");
+          }}
+        >
+          X
+        </button>
+      </BtnDiv> 
     </>
   );
 };
@@ -88,16 +102,16 @@ const Divbar = styled.div`
 `;
 
 const BtnDiv = styled.div`
-display: flex;
-justify-content: space-around;
-& > button{
-  width: 80px;
-  height: 50px;
-  border-radius: 20px;
-  border: 5px solid #000;
-  font-weight: 600;
-  font-size: 1.5em;
-  cursor: pointer;
-}
+  display: flex;
+  justify-content: space-around;
+  & > button {
+    width: 80px;
+    height: 50px;
+    border-radius: 20px;
+    border: 5px solid #000;
+    font-weight: 600;
+    font-size: 1.5em;
+    cursor: pointer;
+  }
 `;
 export default ActQuiz;

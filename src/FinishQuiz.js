@@ -1,22 +1,38 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
-const FinishQuiz = ()=>{
+const FinishQuiz = (props)=>{
+  const navigate = useNavigate();
+  const reduxState = useSelector((state)=>state.quiz)
+  console.log(reduxState)
+  const answerI = reduxState.myAnswer
+  const answer = reduxState.quizBtae.answer
 
+  console.log(answerI, answer)
+  let scoreCt= 0;
+  answer.forEach((item, i) => {
+    if(item === answerI[i]) scoreCt++
+  });
 
-
+  const score = parseFloat(100/answer.length)*scoreCt
+  console.log(scoreCt)
+  console.log(score)
 
   return (
     <>
      <TopText>점수 보기</TopText>
      <FlexDiv>
        <p><span>이범규</span> 퀴즈에 대한 내 점수는</p>
-       <p><span>60</span> 점</p>
+       <p><span>{score}</span> 점</p>
        <p>우와! 우린 참 친해요!</p>
      </FlexDiv>
      <BtnDiv>
     <button>정답 보기</button>
-    <button>이범규에게 한 마디</button>
+    <button onClick={()=>{
+      navigate("/123/comment")
+    }}>이범규에게 한 마디</button>
      </BtnDiv>
     </>
   );
